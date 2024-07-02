@@ -1,6 +1,8 @@
 <script>
     import Icon from "@iconify/svelte";
     import Dialog from "./Dialog.svelte";
+    import SettingGroup from "./settingGroup.svelte";
+    import { toast } from "@zerodevx/svelte-toast";
 
     function display() {
         if (showRest) {
@@ -13,8 +15,10 @@
         showRest = false;
     }
     export let showRest = false;
-    export let dialog;
-    let dialogComponent;
+    export let infoDialog;
+    export let settingDialog;
+    let infoDialogComponent;
+    let settingDialogComponent;
     export let buildHash;
     buildHash = __BUILD_COMMIT_HASH__.substring(0, 7);
 </script>
@@ -25,15 +29,24 @@
             <div class="rest">
                 <div
                     on:click={() => {
-                        dialog.showModal();
+                        infoDialog.showModal();
                     }}
                 >
                     <Icon icon="solar:info-circle-bold"></Icon>
                 </div>
             </div>
+            <div class="rest">
+                <div
+                    on:click={() => {
+                        settingDialog.showModal();
+                    }}
+                >
+                    <Icon icon="solar:settings-bold"></Icon>
+                </div>
+            </div>
         {/if}
 
-        <Dialog bind:dialog bind:this={dialogComponent}>
+        <Dialog bind:dialog={infoDialog} bind:this={infoDialogComponent}>
             <div class="info">
                 <div>
                     <h1>PagerR</h1>
@@ -60,14 +73,48 @@
                         >
                     </p>
                     <div class="ops">
-                        <div on:click={dialogComponent.closeDialog}>close</div>
+                        <div on:click={infoDialogComponent.closeDialog}>
+                            close
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Dialog>
+
+        <Dialog bind:dialog={settingDialog} bind:this={settingDialogComponent}>
+            <div class="info">
+                <div>
+                    <h2>Settings</h2>
+                    <hr style="margin: .2rem 0 1.4rem 0;" />
+
+                    <SettingGroup
+                        itemName="clearInfoAfterSearch"
+                        describe="Clear input after search"
+                    ></SettingGroup>
+
+                    <SettingGroup
+                        itemName="showSec"
+                        describe="Show seconds on clock (refesh to apply)"
+                    ></SettingGroup>
+
+                    <div class="ops">
+                        <div
+                            on:click={() => {
+                                settingDialogComponent.closeDialog();
+                                toast.push(
+                                    "Some settings may need refresh to apply.",
+                                );
+                            }}
+                        >
+                            close
+                        </div>
                     </div>
                 </div>
             </div>
         </Dialog>
 
         <div>
-            <Icon icon="solar:settings-bold"></Icon>
+            <Icon icon="solar:menu-dots-bold"></Icon>
         </div>
     </div>
 </main>
@@ -103,6 +150,7 @@
     }
 
     p,
+    h2,
     h1 {
         text-align: left;
     }

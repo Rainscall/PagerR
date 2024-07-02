@@ -4,6 +4,17 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
+*::-webkit-scrollbar {
+	width: 0.25rem;
+	height: 0.25rem;
+	background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #b7b7b7;
+	border-radius: 114514rem;
+}
+
 html,
 body {
 	position: relative;
@@ -19,11 +30,24 @@ body {
 	font-family: "Helvetica Neue", sans-serif;
 }
 
+
+ul {
+	list-style: none;
+}
+
+svg {
+	display: block;
+}
+
 @media (prefers-color-scheme: dark) {
 
 	html,
 	body {
 		background-color: #000;
 		color: #fff;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background-color: #2d2d2d;
 	}
 }

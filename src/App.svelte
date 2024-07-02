@@ -3,11 +3,12 @@
 	import Bar from "./bar.svelte";
 	import { SvelteToast, toast } from "@zerodevx/svelte-toast";
 	import SearchInput from "./searchInput.svelte";
+	import { config } from "./config.js";
 
 	let toastOptions = {};
 
 	export let timeArr;
-	let showSec = localStorage.getItem("showSec") == "true" || false;
+	let showSec = config.showSec;
 
 	timeArr = getTime().split(":");
 	let timer;

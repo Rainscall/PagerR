@@ -1,11 +1,15 @@
 <script>
     import Icon from "@iconify/svelte";
+    import { config } from "./config";
 
     function search() {
         if (!target) {
             return;
         }
         window.open(`${engine}${encodeURIComponent(target)}`, "_blank");
+        if (config.clearInfoAfterSearch) {
+            target = "";
+        }
     }
 
     let target = "";
@@ -13,14 +17,6 @@
 </script>
 
 <main>
-    <select
-        on:select={(e) => {
-            engine = e.target.value;
-        }}
-    >
-        <option value="https://www.google.com/search?q=">Google</option>
-        <option value="https://www.bing.com/search?q=">Bing</option>
-    </select>
     <form
         on:submit={(e) => {
             e.preventDefault();
@@ -34,15 +30,16 @@
             autofocus="off"
             autocapitalize="off"
             placeholder="Search something..."
-            required
+            required="required"
+            value={target}
         />
     </form>
     <div class="icon" on:click={search}>
         <Icon
             icon="ic:baseline-search"
             style="cursor:pointer;display:block"
-            height="1.5rem"
-            width="1.5rem"
+            height="1.4rem"
+            width="1.4rem"
             on:click={search}
         ></Icon>
     </div>
@@ -57,27 +54,26 @@
         user-select: auto;
     }
 
+    input::placeholder {
+        transform: translateY(1px);
+    }
+
     main {
         display: flex;
         background-color: #f5f5f5;
-        padding: 0.5rem 1rem 0.5rem 0.5rem;
+        padding: 0.5rem 1rem;
         border-radius: 114514rem;
         overflow: hidden;
         gap: 0.3rem;
         user-select: none;
     }
+
     form {
         display: flex;
         width: 100%;
     }
-    select {
-        outline: 0;
-        border: 0;
-        background-color: transparent;
-    }
 
     @media (prefers-color-scheme: dark) {
-        select,
         main {
             background-color: #141414;
             color: #fff;
