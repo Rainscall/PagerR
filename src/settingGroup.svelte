@@ -1,12 +1,11 @@
 <script>
-    import { config, changeConfig } from "./config";
+    import { config, changeConfig, renewConfig } from "./config";
     import SettingItem from "./settingItem.svelte";
     import Icon from "@iconify/svelte";
 
     export let itemName;
     export let describe;
-    console.log(config[itemName]);
-    let status = config[itemName] ? "on" : "off";
+    let status = renewConfig()[itemName] ? "on" : "off";
 </script>
 
 <SettingItem>

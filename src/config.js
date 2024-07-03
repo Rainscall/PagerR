@@ -20,3 +20,10 @@ export function changeConfig(configIn, value) {
     config[configIn] = value;
     localStorage.setItem('config', JSON.stringify(config));
 }
+
+export function renewConfig() {
+    return JSON.parse(localStorage.getItem('config')) || {
+        'clearInfoAfterSearch': true,
+        'showSec': false
+    }
+}

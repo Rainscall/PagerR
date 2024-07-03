@@ -94,7 +94,7 @@
 
                     <SettingGroup
                         itemName="showSec"
-                        describe="Show seconds on clock (refesh to apply)"
+                        describe="Show seconds on clock"
                     ></SettingGroup>
 
                     <div class="ops">
@@ -102,7 +102,7 @@
                             on:click={() => {
                                 settingDialogComponent.closeDialog();
                                 toast.push(
-                                    "Some settings may need refresh to apply.",
+                                    "Some changes might need refresh to apply.",
                                 );
                             }}
                         >
