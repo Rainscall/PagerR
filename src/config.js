@@ -4,7 +4,7 @@ import * as utils from "./utils"
 config = JSON.parse(localStorage.getItem('config')) || {
     'clearInfoAfterSearch': true,
     'showSec': false,
-    'engine': 'https://www.google.com/search?q='
+    'engine': 'https://www.bing.com/search?q='
 }
 
 config = utils.jsonSort(config);
@@ -26,6 +26,6 @@ export function renewConfig() {
     return JSON.parse(localStorage.getItem('config')) || {
         'clearInfoAfterSearch': true,
         'showSec': false,
-        'engine': 'https://www.google.com/search?q='
+        'engine': 'https://www.bing.com/search?q='
     }
 }

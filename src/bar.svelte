@@ -102,9 +102,11 @@
                         describe="Search engine"
                         type="select"
                         options={{
-                            Google: "https://www.google.com/search?q=",
                             Bing: "https://www.bing.com/search?q=",
-                            yandex: "https://yandex.com/search/?text=",
+                            Google: "https://www.google.com/search?q=",
+                            Yandex: "https://yandex.com/search/?text=",
+                            Baidu: "https://www.baidu.com/s?ie=utf-8&wd=",
+                            Naver: "https://search.naver.com/search.naver?query=",
                         }}
                     ></SettingGroup>
 

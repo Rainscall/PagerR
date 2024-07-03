@@ -19,8 +19,10 @@
     let rateLimit = null;
     function autocomplete() {
         if (!target || !target.trim()) {
+            suggests = [];
             return;
         }
+        let keyword = target.trim();
         if (rateLimit) {
             clearTimeout(rateLimit);
             rateLimit = setTimeout(getData, 300);
@@ -30,7 +32,7 @@
 
         function getData() {
             let script = document.createElement("script");
-            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(target.trim())}&cb=window.bingSearchAutocompeleteCallBack`;
+            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(keyword)}&cb=window.bingSearchAutocompeleteCallBack`;
             document.getElementsByTagName("head")[0].appendChild(script);
 
             window.bingSearchAutocompeleteCallBack = (data) => {
@@ -58,6 +60,7 @@
     let suggests = [];
     let target = "";
     let suggestsContainer;
+    let mainInput;
 
     function closeSug(e) {
         if (!suggests[0]) {
@@ -97,6 +100,7 @@
                 autocapitalize="off"
                 placeholder="Search something..."
                 required="required"
+                bind:this={mainInput}
                 bind:value={target}
                 on:input={autocomplete}
             />

@@ -7,7 +7,7 @@
     export let describe;
     export let type = "bool";
     export let options = {};
-    let selectValue;
+    let selectValue = renewConfig()[itemName];
     let status = renewConfig()[itemName] ? "on" : "off";
 </script>
 
