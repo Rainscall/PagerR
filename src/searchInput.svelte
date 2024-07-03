@@ -1,19 +1,23 @@
 <script>
     import Icon from "@iconify/svelte";
     import { config } from "./config";
+    import { onDestroy, onMount } from "svelte";
 
     function search() {
         if (!target) {
             return;
         }
-        window.open(`${engine}${encodeURIComponent(target)}`, "_blank");
+        window.open(`${config.engine}${encodeURIComponent(target)}`, "_blank");
         if (config.clearInfoAfterSearch) {
             target = "";
         }
     }
 
     let rateLimit = null;
-    function autocomplete(e) {
+    function autocomplete() {
+        if (!target) {
+            return;
+        }
         if (rateLimit) {
             clearTimeout(rateLimit);
             rateLimit = setTimeout(getData, 300);
@@ -23,12 +27,11 @@
 
         function getData() {
             let script = document.createElement("script");
-            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(e.target.value)}&cb=window.bingSearchAutocompeleteCallBack`;
+            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(target)}&cb=window.bingSearchAutocompeleteCallBack`;
             document.getElementsByTagName("head")[0].appendChild(script);
 
             window.bingSearchAutocompeleteCallBack = (data) => {
                 script.remove();
-                console.table(getList(data));
                 suggests = getList(data);
             };
 
@@ -51,7 +54,29 @@
 
     let suggests = [];
     let target = "";
-    let engine = "https://www.google.com/search?q=";
+    let suggestsContainer;
+
+    function closeSug(e) {
+        if (!suggests[0]) {
+            return;
+        }
+
+        if (
+            suggestsContainer.contains(e.target) ||
+            suggestsContainer == e.target
+        ) {
+            return;
+        }
+        suggests = [];
+    }
+
+    onMount(() => {
+        document.addEventListener("click", closeSug);
+    });
+
+    onDestroy(() => {
+        document.removeEventListener("click", closeSug);
+    });
 </script>
 
 <main>
@@ -59,7 +84,6 @@
         <form
             on:submit={(e) => {
                 e.preventDefault();
-                target = e.target.children[0].value;
                 search();
             }}
         >
@@ -70,7 +94,7 @@
                 autocapitalize="off"
                 placeholder="Search something..."
                 required="required"
-                value={target}
+                bind:value={target}
                 on:input={autocomplete}
             />
         </form>
@@ -86,7 +110,7 @@
     </div>
 
     {#if suggests[0]}
-        <div style="margin-top: .5rem;">
+        <div style="margin-top: .5rem;" bind:this={suggestsContainer}>
             <ul>
                 {#each suggests as sug}
                     <li
@@ -161,6 +185,7 @@
         display: block;
         transition: all 0.235s;
         transform: translateX(0);
+        user-select: none;
     }
 
     li:hover > span {
@@ -186,6 +211,11 @@
 
         input {
             color: #fff;
+        }
+
+        li:hover,
+        ul {
+            background-color: #ffffff0a;
         }
     }
 </style>

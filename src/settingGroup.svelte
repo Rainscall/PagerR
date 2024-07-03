@@ -5,6 +5,9 @@
 
     export let itemName;
     export let describe;
+    export let type = "bool";
+    export let options = {};
+    let selectValue;
     let status = renewConfig()[itemName] ? "on" : "off";
 </script>
 
@@ -12,17 +15,35 @@
     <ul>
         <li
             on:click={() => {
-                changeConfig(itemName, !config[itemName]);
-                status = config[itemName] ? "on" : "off";
+                switch (type) {
+                    case "bool": {
+                        changeConfig(itemName, !config[itemName]);
+                        status = config[itemName] ? "on" : "off";
+                        break;
+                    }
+                    case "select": {
+                        changeConfig(itemName, selectValue);
+                        break;
+                    }
+                }
             }}
         >
             <div>{describe}</div>
             <div>
-                <Icon
-                    icon="ic:outline-toggle-{status}"
-                    height="1.5rem"
-                    width="1.5rem"
-                ></Icon>
+                {#if type == "bool"}
+                    <Icon
+                        icon="ic:outline-toggle-{status}"
+                        height="1.5rem"
+                        width="1.5rem"
+                    ></Icon>
+                {/if}
+                {#if type == "select"}
+                    <select bind:value={selectValue}>
+                        {#each Object.keys(options) as k}
+                            <option value={options[k]}>{k}</option>
+                        {/each}
+                    </select>
+                {/if}
             </div>
         </li>
     </ul>
@@ -41,5 +62,20 @@
         cursor: pointer;
         user-select: none;
         text-align: left;
+    }
+
+    select {
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        select {
+            color: #fff;
+        }
+        option {
+            background-color: #000;
+        }
     }
 </style>

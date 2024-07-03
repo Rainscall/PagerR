@@ -97,6 +97,17 @@
                         describe="Show seconds on clock"
                     ></SettingGroup>
 
+                    <SettingGroup
+                        itemName="engine"
+                        describe="Search engine"
+                        type="select"
+                        options={{
+                            Google: "https://www.google.com/search?q=",
+                            Bing: "https://www.bing.com/search?q=",
+                            yandex: "https://yandex.com/search/?text=",
+                        }}
+                    ></SettingGroup>
+
                     <div class="ops">
                         <div
                             on:click={() => {

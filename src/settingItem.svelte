@@ -12,7 +12,7 @@
     .container {
         background-color: #f8f8f8;
         display: flex;
-        padding: .5rem;
+        padding: 0.5rem;
         border-radius: 0.65rem;
     }
 
@@ -20,5 +20,11 @@
         max-height: 75vh;
         max-height: 75dvh;
         overflow-y: scroll;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .container {
+            background-color: #000;
+        }
     }
 </style>

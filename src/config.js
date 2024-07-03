@@ -3,7 +3,8 @@ import * as utils from "./utils"
 
 config = JSON.parse(localStorage.getItem('config')) || {
     'clearInfoAfterSearch': true,
-    'showSec': false
+    'showSec': false,
+    'engine': 'https://www.google.com/search?q='
 }
 
 config = utils.jsonSort(config);
@@ -24,6 +25,7 @@ export function changeConfig(configIn, value) {
 export function renewConfig() {
     return JSON.parse(localStorage.getItem('config')) || {
         'clearInfoAfterSearch': true,
-        'showSec': false
+        'showSec': false,
+        'engine': 'https://www.google.com/search?q='
     }
 }
