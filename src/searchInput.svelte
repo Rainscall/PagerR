@@ -4,10 +4,13 @@
     import { onDestroy, onMount } from "svelte";
 
     function search() {
-        if (!target) {
+        if (!target || !target.trim()) {
             return;
         }
-        window.open(`${config.engine}${encodeURIComponent(target)}`, "_blank");
+        window.open(
+            `${config.engine}${encodeURIComponent(target.trim())}`,
+            "_blank",
+        );
         if (config.clearInfoAfterSearch) {
             target = "";
         }
@@ -15,7 +18,7 @@
 
     let rateLimit = null;
     function autocomplete() {
-        if (!target) {
+        if (!target || !target.trim()) {
             return;
         }
         if (rateLimit) {
@@ -27,7 +30,7 @@
 
         function getData() {
             let script = document.createElement("script");
-            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(target)}&cb=window.bingSearchAutocompeleteCallBack`;
+            script.src = `https://api.bing.com/qsonhs.aspx?type=cb&q=${encodeURIComponent(target.trim())}&cb=window.bingSearchAutocompeleteCallBack`;
             document.getElementsByTagName("head")[0].appendChild(script);
 
             window.bingSearchAutocompeleteCallBack = (data) => {

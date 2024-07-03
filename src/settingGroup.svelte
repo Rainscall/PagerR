@@ -68,6 +68,7 @@
         outline: none;
         border: none;
         background-color: transparent;
+        cursor: pointer;
     }
 
     @media (prefers-color-scheme: dark) {
