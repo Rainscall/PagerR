@@ -171,7 +171,7 @@
     }
 
     ul {
-        background-color: #0000000a;
+        background-color: #f5f5f5a8;
         display: flex;
         flex-direction: column;
         gap: 0.2rem;
@@ -182,6 +182,7 @@
         animation-name: sugIn;
         animation-duration: 0.235s;
         animation-fill-mode: forwards;
+        backdrop-filter: blur(8px);
     }
 
     li {
@@ -191,7 +192,7 @@
     }
 
     li:hover {
-        background-color: #0000000a;
+        background-color: #ecececa8;
         transition: all 0.235s;
     }
 
@@ -218,18 +219,18 @@
     }
 
     @media (prefers-color-scheme: dark) {
+        ul,
         .inputArea {
             background-color: #141414ac;
             color: #fff;
         }
 
-        input {
-            color: #fff;
+        li:hover {
+            background-color: #141414ac;
         }
 
-        li:hover,
-        ul {
-            background-color: #ffffff0a;
+        input {
+            color: #fff;
         }
     }
 </style>
