@@ -8,12 +8,14 @@
 </script>
 
 <main>
-	<div class="toastContainer">
-		<SvelteToast {toastOptions} />
+	<div class="mainContainer">
+		<div class="toastContainer">
+			<SvelteToast {toastOptions} />
+		</div>
+		<Clock></Clock>
+		<SearchInput></SearchInput>
+		<Bar></Bar>
 	</div>
-	<Clock></Clock>
-	<SearchInput></SearchInput>
-	<Bar></Bar>
 </main>
 
 <style>
@@ -46,7 +48,7 @@
 		justify-content: var(--toastAlign, center);
 	}
 
-	main {
+	.mainContainer {
 		/* text-align: center; */
 		width: 90vw;
 		box-sizing: border-box;
@@ -54,5 +56,27 @@
 		margin: auto;
 		min-height: 50vh;
 		min-height: 50dvh;
+	}
+
+	main {
+		background-image: radial-gradient(
+			circle,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0.34) 100%
+		);
+		width: 100vw;
+		height: 100vh;
+		height: 100dvh;
+		display: flex;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		main {
+			background-image: radial-gradient(
+				circle,
+				rgba(0, 0, 0, 0.345) 0%,
+				rgba(0, 0, 0, 0.753) 100%
+			);
+		}
 	}
 </style>

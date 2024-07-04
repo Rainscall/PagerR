@@ -28,6 +28,11 @@ body {
 	display: flex;
 	box-sizing: border-box;
 	font-family: "Helvetica Neue", sans-serif;
+	background-image: url('https://bing.biturl.top/?resolution=3840&format=image&index=0&mkt=en-US');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
 }
 
 

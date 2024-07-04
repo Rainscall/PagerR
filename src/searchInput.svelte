@@ -7,10 +7,11 @@
         if (!target || !target.trim()) {
             return;
         }
-        window.open(
-            `${config.engine}${encodeURIComponent(target.trim())}`,
-            "_blank",
-        );
+        if (target.startsWith("https://") || target.startsWith("http://")) {
+            window.open(target);
+        } else {
+            window.open(`${config.engine}${encodeURIComponent(target.trim())}`);
+        }
         if (config.clearInfoAfterSearch) {
             target = "";
         }
@@ -47,8 +48,12 @@
                 }
 
                 let r = [];
+
                 data.Results.forEach((e) => {
                     e.Suggests.forEach((c) => {
+                        if (r.length >= 6) {
+                            return;
+                        }
                         r.push(c);
                     });
                 });
@@ -69,7 +74,8 @@
 
         if (
             suggestsContainer.contains(e.target) ||
-            suggestsContainer == e.target
+            suggestsContainer == e.target ||
+            e.target == mainInput
         ) {
             return;
         }
@@ -150,7 +156,8 @@
 
     .inputArea {
         display: flex;
-        background-color: #f5f5f5;
+        background-color: #f5f5f5a8;
+        backdrop-filter: blur(8px);
         padding: 0.5rem 1rem;
         border-radius: 114514rem;
         overflow: hidden;
@@ -212,7 +219,7 @@
 
     @media (prefers-color-scheme: dark) {
         .inputArea {
-            background-color: #141414;
+            background-color: #141414ac;
             color: #fff;
         }
 

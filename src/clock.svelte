@@ -75,6 +75,7 @@
             sans-serif;
         display: flex;
         justify-content: center;
+        color: #fff;
     }
     .spliter {
         animation-name: fading;
@@ -87,6 +88,9 @@
     @media (prefers-color-scheme: dark) {
         .timeContainer {
             color: #fff;
+        }
+        h1 {
+            color: #000;
         }
     }
 </style>
